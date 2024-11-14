@@ -396,3 +396,23 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# custom ignore
+# Rider
+.idea/
+*.iml
+
+# VS
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# .NET build artifacts
+bin/
+obj/
+
+# Migrations folder 
+Migrations/
