@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Identity.Auth.Domain\Identity.Auth.Domain.csproj" />
+      <ProjectReference Include="..\MediaReview.Identity.Domain\MediaReview.Identity.Domain.csproj" />
     </ItemGroup>
 
 </Project>

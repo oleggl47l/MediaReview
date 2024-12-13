@@ -1,5 +1,4 @@
-using Identity.Auth.Infrastructure;
-using Identity.Auth.Infrastructure.Data;
+using MediaReview.Identity.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +8,7 @@ builder.Services.AddSwaggerGen();
 var connection =
     builder.Configuration.GetConnectionString("MRIdentity") ?? string.Empty;
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Identity.AuthService.Domain.Entities;
+namespace MediaReview.Identity.Domain.Entities;
 
 public class User : IdentityUser
 {

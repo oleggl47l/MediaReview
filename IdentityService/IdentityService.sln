@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Auth.Api", "src\Identity.Auth.Api\Identity.Auth.Api.csproj", "{C2D7BBF0-227C-433F-9B75-DBFBF3BF3E72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Identity.Api", "src\MediaReview.Identity.Api\MediaReview.Identity.Api.csproj", "{C2D7BBF0-227C-433F-9B75-DBFBF3BF3E72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{49E94096-D237-40F5-A4BE-0045722880F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Auth.Application", "src\Identity.Auth.Application\Identity.Auth.Application.csproj", "{71211659-1DF8-4C27-83B6-714099C94ECA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Identity.Application", "src\MediaReview.Identity.Application\MediaReview.Identity.Application.csproj", "{71211659-1DF8-4C27-83B6-714099C94ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Auth.Infrastructure", "src\Identity.Auth.Infrastructure\Identity.Auth.Infrastructure.csproj", "{274EF8CA-100E-437D-BDB6-1A3C6C7FA461}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Identity.Infrastructure", "src\MediaReview.Identity.Infrastructure\MediaReview.Identity.Infrastructure.csproj", "{274EF8CA-100E-437D-BDB6-1A3C6C7FA461}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Auth.Domain", "src\Identity.Auth.Domain\Identity.Auth.Domain.csproj", "{AB0965F0-F40B-46C1-B5BF-A352C596CD63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Identity.Domain", "src\MediaReview.Identity.Domain\MediaReview.Identity.Domain.csproj", "{AB0965F0-F40B-46C1-B5BF-A352C596CD63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
-using Identity.AuthService.Domain.Interfaces;
+using MediaReview.Identity.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Auth.Infrastructure.Data.Repositories;
+namespace MediaReview.Identity.Infrastructure.Data.Repositories;
 
 public class RepositoryBase<TEntity, TKey>(DbContext context) : IRepositoryBase<TEntity, TKey>
     where TEntity : class

@@ -1,6 +1,6 @@
-﻿using Identity.AuthService.Domain.Entities;
+﻿using MediaReview.Identity.Domain.Entities;
 
-namespace Identity.AuthService.Domain.Interfaces;
+namespace MediaReview.Identity.Domain.Interfaces;
 
 public interface IUserRepository : IRepositoryBase<User, string>
 {

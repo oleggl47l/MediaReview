@@ -1,8 +1,8 @@
-﻿using Identity.AuthService.Domain.Entities;
+﻿using MediaReview.Identity.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Auth.Infrastructure.Data;
+namespace MediaReview.Identity.Infrastructure.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : IdentityDbContext<User, Role, string>(options);

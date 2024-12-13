@@ -1,8 +1,8 @@
-﻿using Identity.AuthService.Domain.Entities;
-using Identity.AuthService.Domain.Interfaces;
+﻿using MediaReview.Identity.Domain.Entities;
+using MediaReview.Identity.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Auth.Infrastructure.Data.Repositories;
+namespace MediaReview.Identity.Infrastructure.Data.Repositories;
 
 public class RoleRepository(ApplicationDbContext context) : RepositoryBase<Role, string>(context), IRoleRepository
 {

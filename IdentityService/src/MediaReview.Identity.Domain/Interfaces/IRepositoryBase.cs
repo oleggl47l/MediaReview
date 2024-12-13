@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Identity.AuthService.Domain.Interfaces;
+namespace MediaReview.Identity.Domain.Interfaces;
 
 public interface IRepositoryBase<TEntity, TKey> where TEntity : class
 {
