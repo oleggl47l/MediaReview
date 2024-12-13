@@ -1,4 +1,5 @@
-using Identity.Auth.Data;
+using Identity.Auth.Infrastructure;
+using Identity.Auth.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

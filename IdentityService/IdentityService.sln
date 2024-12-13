@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{49E94096-D23
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Auth.Application", "src\Identity.Auth.Application\Identity.Auth.Application.csproj", "{71211659-1DF8-4C27-83B6-714099C94ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Auth.Data", "src\Identity.Auth.Data\Identity.Auth.Data.csproj", "{274EF8CA-100E-437D-BDB6-1A3C6C7FA461}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Auth.Infrastructure", "src\Identity.Auth.Infrastructure\Identity.Auth.Infrastructure.csproj", "{274EF8CA-100E-437D-BDB6-1A3C6C7FA461}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Auth.Domain", "src\Identity.Auth.Domain\Identity.Auth.Domain.csproj", "{AB0965F0-F40B-46C1-B5BF-A352C596CD63}"
 EndProject
