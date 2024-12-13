@@ -7,18 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Identity\Queries\" />
         <Folder Include="Services\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="11.11.0" />
-      <PackageReference Include="MediatR" Version="12.4.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <PackageReference Include="FluentValidation" Version="11.11.0"/>
+        <PackageReference Include="MediatR" Version="12.4.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11"/>
+
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MediaReview.Identity.Domain\MediaReview.Identity.Domain.csproj" />
+        <ProjectReference Include="..\MediaReview.Identity.Domain\MediaReview.Identity.Domain.csproj"/>
     </ItemGroup>
 
 </Project>
