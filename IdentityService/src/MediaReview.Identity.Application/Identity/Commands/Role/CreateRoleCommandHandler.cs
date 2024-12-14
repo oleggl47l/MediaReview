@@ -7,10 +7,11 @@ public class CreateRoleCommandHandler(RoleManager<Domain.Entities.Role> roleMana
 {
     public async Task<Unit> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
-        var role = new global::MediaReview.Identity.Domain.Entities.Role
+        var role = new Domain.Entities.Role
         {
             Name = request.Name,
-            IsActive = request.IsActive
+            IsActive = request.IsActive,
+            ConcurrencyStamp = Guid.NewGuid().ToString()
         };
         
         var result = await roleManager.CreateAsync(role);
