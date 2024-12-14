@@ -14,7 +14,7 @@ public class UpdateRoleCommandValidator : AbstractValidator<UpdateRoleCommand>
         RuleFor(command => command.Name)
             .MaximumLength(20)
             .WithMessage("Role name cannot exceed 20 characters.")
-            .MustAsync(async (name, cancellationToken) =>
+            .MustAsync(async (name, _) =>
             {
                 if (string.IsNullOrEmpty(name)) return true;
                 var existingRole = await roleManager.FindByNameAsync(name);

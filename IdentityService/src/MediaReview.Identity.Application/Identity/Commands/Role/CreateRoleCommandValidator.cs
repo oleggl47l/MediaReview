@@ -12,7 +12,7 @@ public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
             .WithMessage("Role name is required.")
             .MaximumLength(20)
             .WithMessage("Role name cannot exceed 20 characters.")
-            .MustAsync(async (name, cancellationToken) =>
+            .MustAsync(async (name, _) =>
             {
                 var existingRole = await roleManager.FindByNameAsync(name);
                 return existingRole == null;
