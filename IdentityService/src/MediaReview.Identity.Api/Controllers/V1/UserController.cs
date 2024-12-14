@@ -14,9 +14,6 @@ public class UserController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> Get([FromRoute] string id)
     {
         var user = await mediator.Send(new GetUserQuery { UserId = id });
-        if (user == null)
-            return NotFound();
-
         return Ok(user);
     }
     
@@ -45,10 +42,6 @@ public class UserController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> Delete(string id)
     {
         var result = await mediator.Send(new DeleteUserCommand { UserId = id });
-
-        if (result)
-            return NoContent();
-
         return NotFound(new { Message = $"User with ID {id} not found." });
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using MediaReview.Identity.Domain.Exceptions;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaReview.Identity.Api.ExceptionHandlers;
@@ -12,24 +13,43 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
             Instance = httpContext.Request.Path
         };
 
-        if (exception is FluentValidation.ValidationException fluentException)
-        {
-            problemDetails.Title = "one or more validation errors occurred.";
-            problemDetails.Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1";
-            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            var validationErrors = fluentException.Errors.Select(error => error.ErrorMessage).ToList();
-            problemDetails.Extensions.Add("errors", validationErrors);
-            logger.LogError("Validation errors occurred: {ValidationErrors}", string.Join(", ", validationErrors));
-        }
+        httpContext.Response.ContentType = "application/json";
 
-        else
+        switch (exception)
         {
-            problemDetails.Title = exception.Message;
-        }
+            case FluentValidation.ValidationException  fluentException:
+                problemDetails.Title = "one or more validation errors occurred.";
+                problemDetails.Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1";
+                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                var validationErrors = fluentException.Errors.Select(error => error.ErrorMessage).ToList();
+                problemDetails.Extensions.Add("errors", validationErrors);
+                logger.LogError("Validation errors occurred: {ValidationErrors}", string.Join(", ", validationErrors));
+                break;
 
-        logger.LogError("{ProblemDetailsTitle}", problemDetails.Title);
+            case NotFoundException:
+                problemDetails.Title = exception.Message;
+                httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+                break;
+
+            case UnauthorizedException:
+                problemDetails.Title = exception.Message;
+                httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                break;
+
+            case ConflictException:
+                problemDetails.Title = exception.Message;
+                httpContext.Response.StatusCode = StatusCodes.Status409Conflict;
+                break;
+
+            default:
+                problemDetails.Title = "An unexpected error occurred.";
+                httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                break;
+        }
 
         problemDetails.Status = httpContext.Response.StatusCode;
+
+        logger.LogError("{ProblemDetailsTitle}", problemDetails.Title);
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken).ConfigureAwait(false);
         return true;
     }

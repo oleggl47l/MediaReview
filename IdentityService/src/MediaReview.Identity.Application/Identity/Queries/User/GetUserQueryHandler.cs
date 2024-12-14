@@ -1,4 +1,5 @@
-﻿using MediaReview.Identity.Domain.Models;
+﻿using MediaReview.Identity.Domain.Exceptions;
+using MediaReview.Identity.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -10,13 +11,13 @@ public class GetUserQueryHandler(
     public async Task<UserModel> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {
         var user = await userManager.FindByIdAsync(request.UserId);
-        
-        if (user == null) 
-            throw new NullReferenceException($"User with id {request.UserId} not found");
-        
+
+        if (user == null)
+            throw new NotFoundException($"User with id {request.UserId} not found");
+
         var userRoles = await userManager
             .GetRolesAsync(user);
-        
+
         return new UserModel
         {
             Id = user.Id,

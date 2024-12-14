@@ -27,4 +27,8 @@
         <ProjectReference Include="..\MediaReview.Identity.Application\MediaReview.Identity.Application.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Requests\V1\" />
+    </ItemGroup>
+
 </Project>

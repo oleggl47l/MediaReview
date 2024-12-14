@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MediaReview.Identity.Domain.Exceptions;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace MediaReview.Identity.Application.Identity.Commands.User;
@@ -11,7 +12,7 @@ public class DeleteUserCommandHandler(UserManager<Domain.Entities.User> userMana
         var user = await userManager.FindByIdAsync(request.UserId);
 
         if (user == null)
-            return false;
+            throw new NotFoundException($"User with id {request.UserId} could not be found.");
         
         var result = await userManager.DeleteAsync(user);
         return result.Succeeded;
