@@ -11,19 +11,26 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("MRIdentity")));
+
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddMediatR(cfg =>
 {
     cfg.Lifetime = ServiceLifetime.Scoped;
     cfg.RegisterServicesFromAssembly(typeof(LoginQuery).GetTypeInfo().Assembly);
 });
+
 builder.Services.AddApplication();
+
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 Log.Logger = new LoggerConfiguration()
