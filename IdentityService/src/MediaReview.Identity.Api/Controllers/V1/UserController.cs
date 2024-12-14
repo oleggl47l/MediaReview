@@ -48,14 +48,14 @@ public class UserController(IMediator mediator) : ControllerBase
     [HttpPost("{userId}/roles/{roleName}")]
     public async Task<IActionResult> AddRoleToUser(string userId, string roleName)
     {
-        var result = await mediator.Send(new AddRoleToUserCommand {UserId = userId, RoleName = roleName} );
+        await mediator.Send(new AddRoleToUserCommand {UserId = userId, RoleName = roleName} );
         return Ok("Role added successfully");
     }
     
     [HttpDelete("{userId}/roles/{roleName}")]
     public async Task<IActionResult> RemoveRoleFromUser(string userId, string roleName)
     {
-        var result = await mediator.Send(new RemoveRoleFromUserCommand {UserId = userId, RoleName = roleName});
+        await mediator.Send(new RemoveRoleFromUserCommand {UserId = userId, RoleName = roleName});
         return Ok("Role removed successfully");
     }
     
