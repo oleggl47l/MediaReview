@@ -1,6 +1,7 @@
 ﻿using MediaReview.Identity.Application.Identity.Commands.Role;
 using MediaReview.Identity.Application.Identity.Queries.Role;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -8,6 +9,7 @@ namespace MediaReview.Identity.Api.Controllers.V1;
 
 [Route("api/v1/[controller]/[action]")]
 [ApiController]
+[Authorize]
 public class RoleController (IMediator mediator) : ControllerBase
 {
     [HttpGet("{id}")]
