@@ -4,7 +4,9 @@ using MediaReview.Identity.Application.Extensions;
 using MediaReview.Identity.Application.Identity.Queries;
 using MediaReview.Identity.Application.Services;
 using MediaReview.Identity.Domain.Entities;
+using MediaReview.Identity.Domain.Interfaces;
 using MediaReview.Identity.Infrastructure.Data;
+using MediaReview.Identity.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -32,6 +34,7 @@ builder.Services.AddMediatR(cfg =>
     cfg.Lifetime = ServiceLifetime.Scoped;
     cfg.RegisterServicesFromAssembly(typeof(LoginQuery).GetTypeInfo().Assembly);
 });
+builder.Services.AddScoped<IJwtGenerator, JwtTokenGenerator>();
 
 builder.Services.AddApplication();
 

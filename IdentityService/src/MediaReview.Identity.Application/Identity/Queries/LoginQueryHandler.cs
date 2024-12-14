@@ -1,4 +1,5 @@
 ﻿using MediaReview.Identity.Domain.Exceptions;
+using MediaReview.Identity.Domain.Interfaces;
 using MediaReview.Identity.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -9,14 +10,16 @@ namespace MediaReview.Identity.Application.Identity.Queries;
 public class LoginQueryHandler(
     SignInManager<Domain.Entities.User> signInManager,
     UserManager<Domain.Entities.User> userManager,
-    ILogger<LoginQueryHandler> logger) : IRequestHandler<LoginQuery, LoginModel>
+    ILogger<LoginQueryHandler> logger,
+    IJwtGenerator jwtTokenGenerator) : IRequestHandler<LoginQuery, LoginModel>
 {
     public async Task<LoginModel> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        var user =
-            await userManager.FindByNameAsync(request.UserName)
-            ?? throw new NotFoundException($"User {request.UserName} not found.");
+        var user = await userManager.FindByNameAsync(request.UserName)
+                   ?? throw new NotFoundException($"User {request.UserName} not found.");
 
+        var roles = await userManager.GetRolesAsync(user);
+        
         if (user.AccessFailedCount > 2)
         {
             logger.LogError($"AccessFailedCount {user.AccessFailedCount}.");
@@ -31,15 +34,24 @@ public class LoginQueryHandler(
 
         if (signInResult.IsLockedOut)
             throw new UserBlockedException(user.UserName, user.LockoutEnd.Value);
-        
+
         if (!signInResult.Succeeded)
             throw new LoginException();
-
+        
+        var token = jwtTokenGenerator.GenerateToken(user, roles);
+        var (refreshToken, expires) = jwtTokenGenerator.GenerateRefreshToken();
+        
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpires = expires;
+        
+        await userManager.UpdateAsync(user);
+        
         return new LoginModel
         {
             Id = user.Id,
             UserName = user.UserName,
-            Email = user.Email
+            Email = user.Email,
+            AccessToken = token
         };
     }
 }
