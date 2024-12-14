@@ -44,4 +44,13 @@ public class UserController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new DeleteUserCommand { UserId = id });
         return NotFound(new { Message = $"User with ID {id} not found." });
     }
+    
+    [HttpPost("{userId}/roles/{roleName}")]
+    public async Task<IActionResult> AddRoleToUser(string userId, string roleName)
+    {
+        var result = await mediator.Send(new AddRoleToUserCommand {UserId = userId, RoleName = roleName} );
+        if (!result) return BadRequest("Failed to add role");
+
+        return Ok("Role added successfully");
+    }
 }
