@@ -102,7 +102,12 @@ builder.Services.AddAuthentication(options =>
         }
     );
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("User", policy => policy.RequireRole("User"));
+    options.AddPolicy("Editor", policy => policy.RequireRole("Editor"));
+});
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
