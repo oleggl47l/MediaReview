@@ -1,4 +1,5 @@
 ﻿using MediaReview.Identity.Application.Identity.Queries;
+using MediaReview.Identity.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +12,27 @@ public class AuthController(IMediator mediator) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] LoginQuery query)
     {
-        var result = await mediator.Send(query);
-        return Ok(result.User);
+        try
+        {
+            var result = await mediator.Send(query);
+            return Ok(result.User);
+        }
+        catch (LoginException ex)
+        {
+            return Unauthorized(ex.Message);
+        }
+        catch (UserBlockedException ex)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, ex.Message);
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
     }
 
 }

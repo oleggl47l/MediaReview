@@ -2,8 +2,10 @@ using System.Reflection;
 using MediaReview.Identity.Api.ExceptionHandlers;
 using MediaReview.Identity.Application.Extensions;
 using MediaReview.Identity.Application.Identity.Queries;
+using MediaReview.Identity.Application.Services;
 using MediaReview.Identity.Domain.Entities;
 using MediaReview.Identity.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -15,8 +17,15 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("MRIdentity")));
 
-builder.Services.AddIdentity<User, Role>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<User, Role>(options =>
+    {
+        options.Lockout.MaxFailedAccessAttempts = 3;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+        options.Lockout.AllowedForNewUsers = true;
+    })
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
 
 builder.Services.AddMediatR(cfg =>
 {
@@ -32,6 +41,8 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHostedService<UnblockUsersBackgroundService>();
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()

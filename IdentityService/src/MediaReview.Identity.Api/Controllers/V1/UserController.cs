@@ -58,4 +58,18 @@ public class UserController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new RemoveRoleFromUserCommand {UserId = userId, RoleName = roleName});
         return Ok("Role removed successfully");
     }
+    
+    [HttpPost]
+    public async Task<IActionResult> Block([FromBody] BlockUserCommand command)
+    {
+        await mediator.Send(command);
+        return Ok();
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Unblock([FromBody] UnblockUserCommand command)
+    {
+        await mediator.Send(command);
+        return Ok();
+    }
 }
