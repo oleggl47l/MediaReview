@@ -17,6 +17,14 @@ public class RoleController (IMediator mediator) : ControllerBase
         return Ok(role);
     }
     
+    [HttpGet]
+    public async Task<ActionResult> GetAll()
+    {
+        var roles = await mediator.Send(new GetAllRolesQuery());
+        return Ok(roles);
+
+    }
+    
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateRoleCommand command)
     {
