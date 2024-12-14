@@ -1,7 +1,7 @@
 ﻿namespace MediaReview.Identity.Domain.Models;
 
-public class LoginDto
+public class LoginModel
 {
-    public UserDto? User { get; set; }
+    public UserModel? User { get; set; }
     public bool Success => User != null;
 }

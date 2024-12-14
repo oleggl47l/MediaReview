@@ -4,7 +4,7 @@ using MediatR;
 
 namespace MediaReview.Identity.Application.Identity.Queries;
 
-public class LoginQuery : IRequest<LoginDto>
+public class LoginQuery : IRequest<LoginModel>
 {
     [Required] public string UserName { get; set; }
     [Required] public string Password { get; set; }
