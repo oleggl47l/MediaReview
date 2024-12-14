@@ -15,7 +15,7 @@ public class AuthController(IMediator mediator) : ControllerBase
         try
         {
             var result = await mediator.Send(query);
-            return Ok(result.User);
+            return Ok(result);
         }
         catch (LoginException ex)
         {

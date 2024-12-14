@@ -1,7 +1,10 @@
-﻿namespace MediaReview.Identity.Domain.Models;
+﻿using MediaReview.Identity.Domain.Entities;
+
+namespace MediaReview.Identity.Domain.Models;
 
 public class LoginModel
 {
-    public UserModel? User { get; set; }
-    public bool Success => User != null;
+    public string Id { get; init; } 
+    public string UserName { get; set; }
+    public string Email { get; set; } 
 }

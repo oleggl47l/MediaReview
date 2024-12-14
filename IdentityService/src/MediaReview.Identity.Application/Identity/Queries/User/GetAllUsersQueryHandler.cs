@@ -22,6 +22,7 @@ public class GetAllUsersQueryHandler(UserManager<Domain.Entities.User> userManag
 
             var userResponse = new UserModel
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 Roles = userRoles.ToList(),

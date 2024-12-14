@@ -13,11 +13,10 @@ public class LoginQueryHandler(
 {
     public async Task<LoginModel> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        var result = new LoginModel();
-        var user = 
-            await userManager.FindByNameAsync(request.UserName) 
+        var user =
+            await userManager.FindByNameAsync(request.UserName)
             ?? throw new NotFoundException($"User {request.UserName} not found.");
-        
+
         if (user.AccessFailedCount > 2)
         {
             logger.LogError($"AccessFailedCount {user.AccessFailedCount}.");
@@ -26,23 +25,21 @@ public class LoginQueryHandler(
             if (!updateResult.Succeeded)
                 logger.LogError($"\n\nFailed to update user {user.UserName} status to inactive.\n\n");
         }
-        
+
         var signInResult = await signInManager.PasswordSignInAsync(request.UserName, request.Password, false, true);
 
-        if (signInResult.Succeeded)
-        {
-            result.User = new UserModel
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-            };
-        }
-        else if (signInResult.IsLockedOut)
+
+        if (signInResult.IsLockedOut)
             throw new UserBlockedException(user.UserName, user.LockoutEnd.Value);
-        else
+        
+        if (!signInResult.Succeeded)
             throw new LoginException();
 
-        return result;
+        return new LoginModel
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email
+        };
     }
 }
