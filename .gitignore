@@ -416,3 +416,6 @@ obj/
 
 # Migrations folder 
 Migrations/
+
+# Logs folder
+Logs/
