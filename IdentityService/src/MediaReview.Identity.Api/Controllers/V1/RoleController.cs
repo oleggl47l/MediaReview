@@ -16,6 +16,13 @@ public class RoleController (IMediator mediator) : ControllerBase
         return Ok(result);
     }
     
+    [HttpPatch]
+    public async Task<IActionResult> Update([FromBody] UpdateRoleCommand command)
+    {
+        var result = await mediator.Send(command);
+        return Ok(result);
+    }
+    
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
