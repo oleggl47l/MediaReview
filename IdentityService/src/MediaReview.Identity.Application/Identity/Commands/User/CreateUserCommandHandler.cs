@@ -9,21 +9,7 @@ public class CreateUserCommandHandler(
 {
     public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(request.UserName) ||
-            string.IsNullOrWhiteSpace(request.Email) ||
-            string.IsNullOrWhiteSpace(request.Password))
-        {
-            throw new ArgumentNullException("Username, Email, and Password are required.");
-        }
-
-        var existingEmail = await userManager.FindByEmailAsync(request.Email);
-        var existingUsername = await userManager.FindByNameAsync(request.UserName);
-        if (existingEmail != null)
-            throw new Exception($"User with email {request.Email} already exists.");
-        if (existingUsername != null)
-            throw new Exception($"User with username {request.UserName} already exists.");
-
-        var user = new global::MediaReview.Identity.Domain.Entities.User
+        var user = new MediaReview.Identity.Domain.Entities.User
         {
             UserName = request.UserName,
             Email = request.Email,
@@ -31,7 +17,7 @@ public class CreateUserCommandHandler(
 
         var roles = await GetRolesByIds(request.RoleIds);
         if (roles == null || !roles.Any())
-            throw new Exception("One or more roles do not exist.");
+            throw new ArgumentException("One or more roles do not exist.");
 
         var createResult = await userManager.CreateAsync(user, request.Password);
         if (!createResult.Succeeded)
@@ -45,15 +31,15 @@ public class CreateUserCommandHandler(
         return Unit.Value;
     }
 
-    private async Task<List<global::MediaReview.Identity.Domain.Entities.Role>> GetRolesByIds(IEnumerable<string> roleIds)
+    private async Task<List<MediaReview.Identity.Domain.Entities.Role>> GetRolesByIds(IEnumerable<string> roleIds)
     {
-        var roles = new List<global::MediaReview.Identity.Domain.Entities.Role>();
+        var roles = new List<MediaReview.Identity.Domain.Entities.Role>();
 
         foreach (var roleId in roleIds)
         {
             var role = await roleManager.FindByIdAsync(roleId);
             if (role == null)
-                throw new NullReferenceException($"Role with ID {roleId} does not exist.");
+                throw new ArgumentException($"Role with ID {roleId} does not exist.");
 
             roles.Add(role);
         }
