@@ -15,4 +15,11 @@ public class RoleController (IMediator mediator) : ControllerBase
         var result = await mediator.Send(command);
         return Ok(result);
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        await mediator.Send(new DeleteRoleCommand() { RoleId = id });
+        return Ok();
+    }
 }
