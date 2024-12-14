@@ -33,10 +33,10 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
             .Matches(@"[\W_]")
             .WithMessage("Password must contain at least one special character (e.g., !, @, #, $, etc.).");
 
-        RuleFor(x => x.RoleIds)
+        RuleFor(x => x.RoleNames)
             .NotEmpty().WithMessage("At least one role must be assigned.")
             .Must(roles => roles != null && roles.Any()).WithMessage("Role list cannot be empty.")
-            .ForEach(roleId => roleId.MustAsync(IsValidRoleAsync).WithMessage("Role does not exist."));
+            .ForEach(roleName => roleName.MustAsync(IsValidRoleAsync).WithMessage("Role does not exist."));
     }
 
     private async Task<bool> IsUniqueUserName(string userName, CancellationToken cancellationToken) =>
@@ -45,9 +45,9 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     private async Task<bool> IsUniqueEmail(string email, CancellationToken cancellationToken) =>
         await _userManager.FindByEmailAsync(email) == null;
 
-    private async Task<bool> IsValidRoleAsync(string roleId, CancellationToken cancellationToken)
+    private async Task<bool> IsValidRoleAsync(string roleName, CancellationToken cancellationToken)
     {
-        var role = await _roleManager.FindByIdAsync(roleId);
+        var role = await _roleManager.FindByNameAsync(roleName);
         return role != null;
     }
 }

@@ -15,9 +15,10 @@ public class CreateUserCommandHandler(
             Email = request.Email,
         };
 
-        var roles = await GetRolesByIds(request.RoleIds);
+        var roles = await GetRolesByNames(request.RoleNames);
         if (roles == null || !roles.Any())
             throw new ArgumentException("One or more roles do not exist.");
+
 
         var createResult = await userManager.CreateAsync(user, request.Password);
         if (!createResult.Succeeded)
@@ -26,20 +27,20 @@ public class CreateUserCommandHandler(
             throw new Exception($"Failed to create user: {errors}");
         }
 
-        await AddRolesToUserAsync(user, roles);
+        await AddRolesToUserAsync(user, request.RoleNames);
 
         return Unit.Value;
     }
 
-    private async Task<List<MediaReview.Identity.Domain.Entities.Role>> GetRolesByIds(IEnumerable<string> roleIds)
+    private async Task<List<MediaReview.Identity.Domain.Entities.Role>> GetRolesByNames(IEnumerable<string> roleNames)
     {
         var roles = new List<MediaReview.Identity.Domain.Entities.Role>();
 
-        foreach (var roleId in roleIds)
+        foreach (var roleName in roleNames)
         {
-            var role = await roleManager.FindByIdAsync(roleId);
+            var role = await roleManager.FindByNameAsync(roleName);
             if (role == null)
-                throw new ArgumentException($"Role with ID {roleId} does not exist.");
+                throw new ArgumentException($"Role with name {roleName} does not exist.");
 
             roles.Add(role);
         }
@@ -47,16 +48,14 @@ public class CreateUserCommandHandler(
         return roles;
     }
 
-    private async Task AddRolesToUserAsync(global::MediaReview.Identity.Domain.Entities.User user, List<global::MediaReview.Identity.Domain.Entities.Role> roles)
+    private async Task AddRolesToUserAsync(Domain.Entities.User user,
+        List<string> roleNames)
     {
-        foreach (var role in roles)
+        foreach (var roleName in roleNames)
         {
-            if (role.Name != null)
-            {
-                var addRoleResult = await userManager.AddToRoleAsync(user, role.Name);
-                if (!addRoleResult.Succeeded)
-                    throw new Exception($"Failed to add role {role.Name} to user {user.UserName}");
-            }
+            var addRoleResult = await userManager.AddToRoleAsync(user, roleName);
+            if (!addRoleResult.Succeeded)
+                throw new Exception($"Failed to add role {roleName} to user {user.UserName}");
         }
     }
 }

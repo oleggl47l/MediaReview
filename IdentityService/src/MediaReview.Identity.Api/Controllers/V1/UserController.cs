@@ -41,8 +41,8 @@ public class UserController(IMediator mediator) : ControllerBase
     [HttpDelete("/api/v1/[controller]/[action]/{id}")]
     public async Task<IActionResult> Delete(string id)
     {
-        var result = await mediator.Send(new DeleteUserCommand { UserId = id });
-        return NotFound(new { Message = $"User with ID {id} not found." });
+        await mediator.Send(new DeleteUserCommand { UserId = id });
+        return NoContent();
     }
     
     [HttpPost("{userId}/roles/{roleName}")]
