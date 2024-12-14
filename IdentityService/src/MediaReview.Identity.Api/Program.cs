@@ -1,4 +1,6 @@
 using System.Reflection;
+using MediaReview.Identity.Api.ExceptionHandlers;
+using MediaReview.Identity.Application.Extensions;
 using MediaReview.Identity.Application.Identity.Queries;
 using MediaReview.Identity.Domain.Entities;
 using MediaReview.Identity.Infrastructure.Data;
@@ -17,6 +19,9 @@ builder.Services.AddMediatR(cfg =>
     cfg.Lifetime = ServiceLifetime.Scoped;
     cfg.RegisterServicesFromAssembly(typeof(LoginQuery).GetTypeInfo().Assembly);
 });
+builder.Services.AddApplication();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -31,5 +36,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseExceptionHandler();
+
 
 app.Run();

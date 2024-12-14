@@ -13,14 +13,15 @@ public class CreateUserCommandHandler(
             string.IsNullOrWhiteSpace(request.Email) ||
             string.IsNullOrWhiteSpace(request.Password))
         {
-            throw new ArgumentException("Username, Email, and Password are required.");
+            throw new ArgumentNullException("Username, Email, and Password are required.");
         }
 
-        var existingUser = await userManager.FindByEmailAsync(request.Email);
-        if (existingUser != null)
-        {
+        var existingEmail = await userManager.FindByEmailAsync(request.Email);
+        var existingUsername = await userManager.FindByNameAsync(request.UserName);
+        if (existingEmail != null)
             throw new Exception($"User with email {request.Email} already exists.");
-        }
+        if (existingUsername != null)
+            throw new Exception($"User with username {request.UserName} already exists.");
 
         var user = new global::MediaReview.Identity.Domain.Entities.User
         {
@@ -52,7 +53,7 @@ public class CreateUserCommandHandler(
         {
             var role = await roleManager.FindByIdAsync(roleId);
             if (role == null)
-                throw new Exception($"Role with ID {roleId} does not exist.");
+                throw new NullReferenceException($"Role with ID {roleId} does not exist.");
 
             roles.Add(role);
         }
