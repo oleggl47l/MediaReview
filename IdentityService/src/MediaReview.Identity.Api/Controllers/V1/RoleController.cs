@@ -1,4 +1,5 @@
 ﻿using MediaReview.Identity.Application.Identity.Commands.Role;
+using MediaReview.Identity.Application.Identity.Queries.Role;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,13 @@ namespace MediaReview.Identity.Api.Controllers.V1;
 [ApiController]
 public class RoleController (IMediator mediator) : ControllerBase
 {
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetById(string id)
+    {
+        var role = await mediator.Send(new GetRoleQuery { RoleId = id });
+        return Ok(role);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateRoleCommand command)
     {
