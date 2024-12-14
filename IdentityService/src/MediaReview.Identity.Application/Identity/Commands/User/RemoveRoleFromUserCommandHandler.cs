@@ -20,6 +20,9 @@ public class RemoveRoleFromUserCommandHandler(
             throw new NotFoundException($"Role with name {request.RoleName} not found");
 
         var result = await userManager.RemoveFromRoleAsync(user, request.RoleName);
+        if (!result.Succeeded)
+            throw new InvalidOperationException("Failed to remove role to user");
+
         return result.Succeeded;
     }
 }
