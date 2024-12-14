@@ -1,0 +1,30 @@
+services:
+  mridentity_db:
+    container_name: mridentity_db
+    image: postgres    
+    restart: always
+    environment:
+      POSTGRES_DB: MRIdentity
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123Qq123
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres_mridentity_data:/var/lib/postgresql/data
+
+  mrreview_db:
+    container_name: mrreview_db
+    restart: always
+    image: postgres
+    environment:
+      POSTGRES_DB: MRReview
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123Qq123
+    ports:
+      - 5434:5432
+    volumes:
+      - postgres_mrreview_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_mridentity_data:
+  postgres_mrreview_data:

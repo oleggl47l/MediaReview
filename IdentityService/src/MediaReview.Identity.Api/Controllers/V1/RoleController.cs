@@ -9,7 +9,6 @@ namespace MediaReview.Identity.Api.Controllers.V1;
 
 [Route("api/v1/[controller]/[action]")]
 [ApiController]
-[Authorize]
 public class RoleController (IMediator mediator) : ControllerBase
 {
     [HttpGet("{id}")]
