@@ -26,11 +26,24 @@ public class CreateReviewCommandValidator : AbstractValidator<CreateReviewComman
             .NotEmpty().WithMessage("Tag name cannot be empty.")
             .MaximumLength(100).WithMessage("Tag name should not exceed 100 characters.")
             .When(x => x.TagNames != null && x.TagNames.Any());
+        
+        RuleFor(x => x.TagNames)
+            .Must((_, tagNames) => AreTagsUnique(tagNames))
+            .WithMessage("Tag names must be unique.");
     }
 
     private async Task<bool> CategoryExists(string categoryName, CancellationToken cancellationToken)
     {
         var category = await _categoryRepository.GetCategoryByNameAsync(categoryName);
         return category != null;
+    }
+    
+    private bool AreTagsUnique(IEnumerable<string>? tagNames)
+    {
+        if (tagNames == null)
+            return true;
+
+        var distinctTagNames = tagNames.Distinct().ToList();
+        return distinctTagNames.Count() == tagNames.Count();
     }
 }
