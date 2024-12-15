@@ -23,6 +23,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("MRIdentity")));
 
+Console.WriteLine("\n\n\nDatabase Connection String: " + configuration.GetConnectionString("MRIdentity") + "\n\n\n");
+
+
 builder.Services.AddIdentity<User, Role>(options =>
     {
         options.Lockout.MaxFailedAccessAttempts = 3;
@@ -133,5 +136,11 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseExceptionHandler();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate();  
+}
 
 app.Run();

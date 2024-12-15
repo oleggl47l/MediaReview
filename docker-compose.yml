@@ -25,6 +25,20 @@ services:
     volumes:
       - postgres_mrreview_data:/var/lib/postgresql/data
 
+  media-review-identity-serivce:
+    container_name: media-review-identity-serivce
+    build:
+      context: ./IdentityService
+      dockerfile: src/MediaReview.Identity.Api/Dockerfile
+    ports:
+      - "5288:8080"  
+    environment:
+      - JwtSettings__SecretKey=$"{JWT_SECRETKEY}"
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MRIdentity=${DB_CONNECTION_STRING_MRI}
+    depends_on:
+      - mridentity_db
+
 volumes:
   postgres_mridentity_data:
   postgres_mrreview_data:
