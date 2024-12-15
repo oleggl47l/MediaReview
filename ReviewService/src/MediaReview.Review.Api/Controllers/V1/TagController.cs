@@ -14,4 +14,11 @@ public class TagController(IMediator mediator) : ControllerBase
         await mediator.Send(command);
         return Ok();
     }
+
+    [HttpPatch]
+    public async Task<IActionResult> UpdateTag([FromBody] UpdateTagCommand command)
+    {
+        await mediator.Send(command);
+        return Ok();
+    }
 }
