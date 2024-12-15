@@ -11,13 +11,7 @@ public class CategoryController(IMediator mediator) : Controller
     [HttpPost]
     public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
     {
-        if (command == null)
-        {
-            return BadRequest();
-        }
-
         await mediator.Send(command);
-
         return Ok();
     }
 

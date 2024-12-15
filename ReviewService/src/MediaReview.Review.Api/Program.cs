@@ -1,4 +1,5 @@
 using System.Reflection;
+using MediaReview.Review.Api.ExceptionHandlers;
 using MediaReview.Review.Application.Review.Commands.Category;
 using MediaReview.Review.Application.Review.Extensions;
 using MediaReview.Review.Domain.Interfaces;
@@ -27,6 +28,9 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddApplication();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -52,5 +56,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseExceptionHandler();
 
 app.Run();
