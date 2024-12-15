@@ -2,7 +2,4 @@
 
 namespace MediaReview.Review.Domain.Interfaces;
 
-public interface ITagRepository : IRepositoryBase<Tag>
-{
-
-}
+public interface ITagRepository : IRepositoryBase<Tag>;

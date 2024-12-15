@@ -2,6 +2,4 @@
 
 namespace MediaReview.Review.Domain.Interfaces;
 
-public interface ICategoryRepository : IRepositoryBase<Category>
-{
-}
+public interface ICategoryRepository : IRepositoryBase<Category>;

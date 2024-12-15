@@ -1,3 +1,6 @@
+using System.Reflection;
+using MediaReview.Review.Application.Review.Commands.Category;
+using MediaReview.Review.Application.Review.Extensions;
 using MediaReview.Review.Domain.Interfaces;
 using MediaReview.Review.Infrastructure.Data;
 using MediaReview.Review.Infrastructure.Data.Repositories;
@@ -15,6 +18,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.Lifetime = ServiceLifetime.Scoped;
+    cfg.RegisterServicesFromAssembly(typeof(CreateCategoryCommand).GetTypeInfo().Assembly);
+});
+
+builder.Services.AddApplication();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

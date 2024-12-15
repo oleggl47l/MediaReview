@@ -5,9 +5,15 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
     <ItemGroup>
-      <Folder Include="Services\" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+        <PackageReference Include="MediatR" Version="12.4.1"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Services\"/>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\MediaReview.Review.Domain\MediaReview.Review.Domain.csproj" />
     </ItemGroup>
 
 </Project>
