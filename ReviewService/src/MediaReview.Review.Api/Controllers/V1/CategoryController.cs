@@ -7,7 +7,7 @@ namespace MediaReview.Review.Api.Controllers.V1;
 
 [Route("api/v1/[controller]/[action]")]
 [ApiController]
-public class CategoryController(IMediator mediator) : Controller
+public class CategoryController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCategoryAsync(Guid id)
