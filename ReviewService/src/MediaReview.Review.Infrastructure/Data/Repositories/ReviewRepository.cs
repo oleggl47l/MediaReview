@@ -58,4 +58,13 @@ public class ReviewRepository(ApplicationDbContext context)
             .ThenInclude(rt => rt.Tag)
             .FirstOrDefaultAsync(r => r.Id == reviewId);
     }
+    
+    public async Task<IEnumerable<Domain.Entities.Review>> GetAllReviewsWithCategoryAndTagsAsync()
+    {
+        return await DbSet
+            .Include(r => r.Category)
+            .Include(r => r.ReviewTags)
+            .ThenInclude(rt => rt.Tag)
+            .ToListAsync();
+    }
 }

@@ -10,4 +10,5 @@ public interface IReviewRepository : IRepositoryBase<Entities.Review>
 
     Task RemoveTagFromReviewAsync(Guid reviewId, Guid tagId);
     Task<Domain.Entities.Review?> GetReviewWithCategoryAndTagsAsync(Guid reviewId);
+    Task<IEnumerable<Domain.Entities.Review>> GetAllReviewsWithCategoryAndTagsAsync();
 }
