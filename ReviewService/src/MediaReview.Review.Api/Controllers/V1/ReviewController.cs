@@ -29,4 +29,11 @@ public class ReviewController(IMediator mediator) : ControllerBase
         await mediator.Send(command);
         return Ok();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteReviewAsync(DeleteReviewCommand command)
+    {
+        await mediator.Send(command);
+        return Ok();
+    }
 }
