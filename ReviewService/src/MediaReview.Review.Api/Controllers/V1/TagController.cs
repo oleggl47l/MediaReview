@@ -1,4 +1,5 @@
 ﻿using MediaReview.Review.Application.Review.Commands.Tag;
+using MediaReview.Review.Application.Review.Queries.Tag;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,13 @@ namespace MediaReview.Review.Api.Controllers.V1;
 [ApiController]
 public class TagController(IMediator mediator) : ControllerBase
 {
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetTag(Guid id)
+    {
+        var tag = await mediator.Send(new GetTagByIdQuery { Id = id });
+        return Ok(tag);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateTag([FromBody] CreateTagCommand command)
     {
