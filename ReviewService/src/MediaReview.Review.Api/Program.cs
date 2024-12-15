@@ -1,4 +1,6 @@
+using MediaReview.Review.Domain.Interfaces;
 using MediaReview.Review.Infrastructure.Data;
+using MediaReview.Review.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -9,6 +11,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("MRReview")));
+
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,5 +36,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
