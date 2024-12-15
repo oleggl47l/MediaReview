@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Review.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Review.Domain", "src\MediaReview.Review.Domain\MediaReview.Review.Domain.csproj", "{8F01A03B-310C-44ED-8C16-A885262603E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Review.Data", "src\MediaReview.Review.Data\MediaReview.Review.Data.csproj", "{B019EE8E-A7B1-460F-B46C-2CD2ECE9FD15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Review.Infrastructure", "src\MediaReview.Review.Infrastructure\MediaReview.Review.Infrastructure.csproj", "{B019EE8E-A7B1-460F-B46C-2CD2ECE9FD15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
