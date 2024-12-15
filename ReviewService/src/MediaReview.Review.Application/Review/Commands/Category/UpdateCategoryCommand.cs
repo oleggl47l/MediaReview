@@ -3,8 +3,9 @@ using MediatR;
 
 namespace MediaReview.Review.Application.Review.Commands.Category;
 
-public class CreateCategoryCommand : IRequest<Unit>
+public class UpdateCategoryCommand : IRequest<Unit>
 {
-    [Required] public string Name { get; set; }
+    [Required] public Guid Id { get; set; }
+    public string? Name { get; set; }
     public string? Description { get; set; }
 }

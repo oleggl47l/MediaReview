@@ -15,4 +15,10 @@ public class CategoryController(IMediator mediator) : Controller
         return Ok();
     }
 
+    [HttpPatch]
+    public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryCommand command)
+    {
+        await mediator.Send(command);
+        return Ok();
+    }
 }
