@@ -21,4 +21,11 @@ public class CategoryController(IMediator mediator) : Controller
         await mediator.Send(command);
         return Ok();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteCategory([FromBody] DeleteCategoryCommand command)
+    {
+        await mediator.Send(command);
+        return NoContent();
+    }
 }
