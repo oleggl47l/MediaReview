@@ -49,4 +49,13 @@ public class ReviewRepository(ApplicationDbContext context)
         Context.Set<ReviewTag>().Remove(reviewTag);
         await Context.SaveChangesAsync();
     }
+
+    public async Task<Domain.Entities.Review?> GetReviewWithCategoryAndTagsAsync(Guid reviewId)
+    {
+        return await DbSet
+            .Include(r => r.Category)
+            .Include(r => r.ReviewTags)
+            .ThenInclude(rt => rt.Tag)
+            .FirstOrDefaultAsync(r => r.Id == reviewId);
+    }
 }
