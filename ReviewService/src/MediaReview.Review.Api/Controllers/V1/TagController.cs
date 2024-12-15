@@ -16,6 +16,13 @@ public class TagController(IMediator mediator) : ControllerBase
         return Ok(tag);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetTags()
+    {
+        var tags = await mediator.Send(new GetAllTagsQuery());
+        return Ok(tags);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateTag([FromBody] CreateTagCommand command)
     {
