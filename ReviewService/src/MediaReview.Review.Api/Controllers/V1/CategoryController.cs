@@ -15,6 +15,13 @@ public class CategoryController(IMediator mediator) : Controller
         var category = await mediator.Send(new GetCategoryByIdQuery { Id = id });
         return Ok(category);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetCategoriesAsync()
+    {
+        var categories = await mediator.Send(new GetAllCategoriesQuery());
+        return Ok(categories);
+    }
     
     [HttpPost]
     public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
