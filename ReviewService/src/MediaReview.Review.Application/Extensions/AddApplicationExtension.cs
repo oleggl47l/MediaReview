@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 using FluentValidation;
-using MediaReview.Review.Application.Review.Behaviours;
+using MediaReview.Review.Application.Behaviours;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MediaReview.Review.Application.Review.Extensions;
+namespace MediaReview.Review.Application.Extensions;
 
 public static class AddApplicationExtension
 {

@@ -1,7 +1,7 @@
 using System.Reflection;
 using MediaReview.Review.Api.ExceptionHandlers;
+using MediaReview.Review.Application.Extensions;
 using MediaReview.Review.Application.Review.Commands.Category;
-using MediaReview.Review.Application.Review.Extensions;
 using MediaReview.Review.Domain.Interfaces;
 using MediaReview.Review.Infrastructure.Data;
 using MediaReview.Review.Infrastructure.Data.Repositories;
