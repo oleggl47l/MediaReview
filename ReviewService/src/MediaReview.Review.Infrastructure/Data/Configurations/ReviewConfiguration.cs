@@ -16,6 +16,6 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Domain.Entities.Revi
         builder.HasOne(r => r.Category)
             .WithMany(c => c.Reviews)
             .HasForeignKey(r => r.CategoryId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

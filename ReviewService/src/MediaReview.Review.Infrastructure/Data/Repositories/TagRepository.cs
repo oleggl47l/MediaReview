@@ -10,4 +10,9 @@ public class TagRepository(ApplicationDbContext context) : RepositoryBase<Tag>(c
     {
         return await DbSet.AnyAsync(t => t.Name == name);
     }
+    
+    public async Task<Tag?> GetTagByNameAsync(string name)
+    {
+        return await DbSet.FirstOrDefaultAsync(t => t.Name == name);
+    }
 }
