@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Review.Domain",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaReview.Review.Infrastructure", "src\MediaReview.Review.Infrastructure\MediaReview.Review.Infrastructure.csproj", "{B019EE8E-A7B1-460F-B46C-2CD2ECE9FD15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedModels", "..\SharedModels\SharedModels\SharedModels.csproj", "{9B58FD56-A63C-4E92-94D9-C847CDE5DF3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{B019EE8E-A7B1-460F-B46C-2CD2ECE9FD15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B019EE8E-A7B1-460F-B46C-2CD2ECE9FD15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B019EE8E-A7B1-460F-B46C-2CD2ECE9FD15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B58FD56-A63C-4E92-94D9-C847CDE5DF3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B58FD56-A63C-4E92-94D9-C847CDE5DF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B58FD56-A63C-4E92-94D9-C847CDE5DF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B58FD56-A63C-4E92-94D9-C847CDE5DF3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E9A48EE4-A741-43A3-83B6-14D37911D693} = {0B603F2C-2341-43F7-A056-6A88BDB4CEA6}

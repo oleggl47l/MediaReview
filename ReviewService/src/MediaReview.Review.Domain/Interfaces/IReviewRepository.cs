@@ -14,4 +14,5 @@ public interface IReviewRepository : IRepositoryBase<Entities.Review>
     Task<Domain.Entities.Review?> GetReviewWithCategoryAndTagsAsync(Guid reviewId);
     Task<IEnumerable<Domain.Entities.Review>> GetAllReviewsWithCategoryAndTagsAsync();
     Task<IEnumerable<Tag>> GetTagsByReviewIdAsync(Guid reviewId);
+    Task<IEnumerable<Domain.Entities.Review>> GetReviewsByUserIdAsync(Guid userId);
 }

@@ -75,4 +75,11 @@ public class ReviewRepository(ApplicationDbContext context)
             .Select(rt => rt.Tag)
             .ToListAsync();
     }
+    
+    public async Task<IEnumerable<Domain.Entities.Review>> GetReviewsByUserIdAsync(Guid userId)
+    {
+        return await DbSet
+            .Where(r => r.AuthorId == userId)
+            .ToListAsync();
+    }
 }

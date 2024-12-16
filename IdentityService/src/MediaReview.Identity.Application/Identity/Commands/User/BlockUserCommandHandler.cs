@@ -1,11 +1,13 @@
-﻿using MediaReview.Identity.Domain.Exceptions;
+﻿using MediaReview.Identity.Application.Services;
+using MediaReview.Identity.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace MediaReview.Identity.Application.Identity.Commands.User;
 
 public class BlockUserCommandHandler(
-    UserManager<Domain.Entities.User> userManager) : IRequestHandler<BlockUserCommand, Unit>
+    UserManager<Domain.Entities.User> userManager,
+    UserService userService) : IRequestHandler<BlockUserCommand, Unit>
 {
     public async Task<Unit> Handle(BlockUserCommand request, CancellationToken cancellationToken)
     {
@@ -20,6 +22,8 @@ public class BlockUserCommandHandler(
 
         await userManager.SetLockoutEnabledAsync(user, true);
         await userManager.SetLockoutEndDateAsync(user, lockoutEndTime);
+
+        await userService.NotifyUserStatusChanged(user.Id);
 
         return Unit.Value;
     }

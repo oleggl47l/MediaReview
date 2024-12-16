@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using MassTransit;
 using MediaReview.Identity.Api.ExceptionHandlers;
 using MediaReview.Identity.Application.Extensions;
 using MediaReview.Identity.Application.Identity.Queries;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using SharedModels;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -46,8 +48,9 @@ builder.Services.AddScoped<IJwtGenerator, JwtTokenGenerator>();
 
 builder.Services.AddHostedService<UnblockUsersBackgroundService>();
 
-builder.Services.AddApplication();
+builder.Services.AddScoped<UserService>(); 
 
+builder.Services.AddApplication();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
@@ -110,6 +113,22 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
     options.AddPolicy("User", policy => policy.RequireRole("User"));
     options.AddPolicy("Editor", policy => policy.RequireRole("Editor"));
+});
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("rabbitmq://localhost", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.ConfigureEndpoints(context);
+    });
+
+    x.AddRequestClient<UserStatusChangedEvent>();
 });
 
 Log.Logger = new LoggerConfiguration()
