@@ -1,9 +1,10 @@
 ﻿using MassTransit;
+using MediaReview.Review.Application.Consumers;
 using MediaReview.Review.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 using SharedModels;
 
-namespace MediaReview.Review.Application.Consumers;
+namespace MediaReview.Review.Infrastructure.Messaging.Consumers;
 
 public class UserDeletedConsumer(IReviewRepository reviewRepository, ILogger<UserStatusChangedEventConsumer> logger) 
     : IConsumer<UserDeletedEvent>

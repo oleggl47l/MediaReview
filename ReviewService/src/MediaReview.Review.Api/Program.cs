@@ -9,6 +9,7 @@ using MediaReview.Review.Application.Review.Commands.Category;
 using MediaReview.Review.Domain.Interfaces;
 using MediaReview.Review.Infrastructure.Data;
 using MediaReview.Review.Infrastructure.Data.Repositories;
+using MediaReview.Review.Infrastructure.Messaging.Consumers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;

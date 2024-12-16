@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="MassTransit.Abstractions" Version="8.3.4-develop.2148" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
         <PrivateAssets>all</PrivateAssets>
@@ -20,7 +21,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\SharedModels\SharedModels\SharedModels.csproj" />
       <ProjectReference Include="..\MediaReview.Review.Domain\MediaReview.Review.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Messaging\" />
     </ItemGroup>
 
 </Project>
