@@ -34,6 +34,8 @@ public class UpdateReviewCommandHandler(
         if (request.IsPublished.HasValue)
             review.IsPublished = request.IsPublished.Value;
         
+        review.UpdatedAt = DateTime.UtcNow;
+        
         await reviewRepository.Update(review);
 
         return Unit.Value;
