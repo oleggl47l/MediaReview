@@ -22,6 +22,13 @@ public class ReviewController(IMediator mediator) : ControllerBase
         var reviews = await mediator.Send(new GetAllReviewsQuery());
         return Ok(reviews);
     }
+
+    [HttpGet("{id}/tag")]
+    public async Task<IActionResult> GetReviewsByTagAsync(Guid id)
+    {
+        var reviews = await mediator.Send(new GetReviewsByTagQuery{TagId = id});
+        return Ok(reviews);
+    }
     
     [HttpPost]
     public async Task<IActionResult> CreateReviewAsync(CreateReviewCommand command)
