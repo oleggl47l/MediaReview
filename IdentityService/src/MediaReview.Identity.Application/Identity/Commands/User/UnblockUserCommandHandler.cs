@@ -1,11 +1,13 @@
 ﻿using MediaReview.Identity.Domain.Exceptions;
+using MediaReview.Identity.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace MediaReview.Identity.Application.Identity.Commands.User;
 
 public class UnblockUserCommandHandler(
-    UserManager<Domain.Entities.User> userManager) : IRequestHandler<UnblockUserCommand, Unit>
+    UserManager<Domain.Entities.User> userManager,
+    IUserService userService) : IRequestHandler<UnblockUserCommand, Unit>
 {
     public async Task<Unit> Handle(UnblockUserCommand request, CancellationToken cancellationToken)
     {
@@ -17,6 +19,8 @@ public class UnblockUserCommandHandler(
 
         user.Active = true;
         await userManager.UpdateAsync(user);
+
+        await userService.NotifyUserStatusChanged(user.Id);
 
         return Unit.Value;
     }

@@ -1,12 +1,15 @@
 using System.Reflection;
 using System.Text;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MediaReview.Review.Api.ExceptionHandlers;
+using MediaReview.Review.Application.Consumers;
 using MediaReview.Review.Application.Extensions;
 using MediaReview.Review.Application.Review.Commands.Category;
 using MediaReview.Review.Domain.Interfaces;
 using MediaReview.Review.Infrastructure.Data;
 using MediaReview.Review.Infrastructure.Data.Repositories;
+using MediaReview.Review.Infrastructure.Messaging.Consumers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -82,6 +85,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]))
         };
     });
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("rabbitmq://localhost", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.ConfigureEndpoints(context);
+    });
+
+    x.AddConsumer<UserStatusChangedEventConsumer>();
+    x.AddConsumer<UserDeletedConsumer>();
+});
+
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .ReadFrom.Configuration(builder.Configuration)
