@@ -1,12 +1,14 @@
 ﻿using MediaReview.Review.Application.Review.Commands.Review;
 using MediaReview.Review.Application.Review.Queries.Review;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaReview.Review.Api.Controllers.V1;
 
 [Route("api/v1/[controller]/[action]")]
 [ApiController]
+[Authorize]
 public class ReviewController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id}")]
