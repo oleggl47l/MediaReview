@@ -19,7 +19,8 @@ public class UnblockUsersBackgroundService(
             {
                 using var scope = serviceScopeFactory.CreateScope();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-
+                var userService = scope.ServiceProvider.GetRequiredService<UserService>();
+                
                 var users = userManager.Users.Where(u => !u.Active).ToList();
 
                 foreach (var user in users)
@@ -32,6 +33,7 @@ public class UnblockUsersBackgroundService(
                         await userManager.SetLockoutEndDateAsync(user, DateTime.UtcNow);
                         await userManager.UpdateAsync(user);
                         logger.LogInformation($"User {user.UserName} has been unlocked.");
+                        await userService.NotifyUserStatusChanged(user.Id);
                     }
                 }
             }
