@@ -43,7 +43,14 @@ public class ReviewController(IMediator mediator) : ControllerBase
         await mediator.Send(command);
         return Ok();
     }
-
+    
+    [HttpPost]
+    public async Task<IActionResult> AddTagToReview(AddTagToReviewCommand command)
+    {
+        await mediator.Send(command);
+        return NoContent();
+    }
+    
     [HttpPatch]
     public async Task<IActionResult> UpdateReviewAsync(UpdateReviewCommand command)
     {
@@ -56,5 +63,12 @@ public class ReviewController(IMediator mediator) : ControllerBase
     {
         await mediator.Send(command);
         return Ok();
+    }
+    
+    [HttpDelete]
+    public async Task<IActionResult> RemoveTagFromReview(RemoveTagFromReviewCommand command)
+    {
+        await mediator.Send(command);
+        return NoContent();
     }
 }
