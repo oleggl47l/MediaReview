@@ -1,4 +1,5 @@
 ﻿using MediaReview.Identity.Domain.Entities;
+using MediaReview.Identity.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +20,7 @@ public class UnblockUsersBackgroundService(
             {
                 using var scope = serviceScopeFactory.CreateScope();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-                var userService = scope.ServiceProvider.GetRequiredService<UserService>();
+                var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
                 
                 var users = userManager.Users.Where(u => !u.Active).ToList();
 

@@ -48,7 +48,7 @@ builder.Services.AddScoped<IJwtGenerator, JwtTokenGenerator>();
 
 builder.Services.AddHostedService<UnblockUsersBackgroundService>();
 
-builder.Services.AddScoped<UserService>(); 
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddApplication();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

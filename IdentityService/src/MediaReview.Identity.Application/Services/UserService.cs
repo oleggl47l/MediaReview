@@ -1,11 +1,12 @@
 ﻿using MassTransit;
 using MediaReview.Identity.Domain.Entities;
+using MediaReview.Identity.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using SharedModels;
 
 namespace MediaReview.Identity.Application.Services;
 
-public class UserService(IPublishEndpoint publishEndpoint, UserManager<User> userManager)
+public class UserService(IPublishEndpoint publishEndpoint, UserManager<User> userManager) : IUserService
 {
     public async Task NotifyUserStatusChanged(string userId)
     {

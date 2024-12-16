@@ -1,5 +1,5 @@
-﻿using MediaReview.Identity.Application.Services;
-using MediaReview.Identity.Domain.Exceptions;
+﻿using MediaReview.Identity.Domain.Exceptions;
+using MediaReview.Identity.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -7,7 +7,7 @@ namespace MediaReview.Identity.Application.Identity.Commands.User;
 
 public class BlockUserCommandHandler(
     UserManager<Domain.Entities.User> userManager,
-    UserService userService) : IRequestHandler<BlockUserCommand, Unit>
+    IUserService userService) : IRequestHandler<BlockUserCommand, Unit>
 {
     public async Task<Unit> Handle(BlockUserCommand request, CancellationToken cancellationToken)
     {

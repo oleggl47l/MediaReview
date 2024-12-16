@@ -1,11 +1,11 @@
-﻿using MediaReview.Identity.Application.Services;
-using MediaReview.Identity.Domain.Exceptions;
+﻿using MediaReview.Identity.Domain.Exceptions;
+using MediaReview.Identity.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace MediaReview.Identity.Application.Identity.Commands.User;
 
-public class DeleteUserCommandHandler(UserManager<Domain.Entities.User> userManager, UserService userService)
+public class DeleteUserCommandHandler(UserManager<Domain.Entities.User> userManager, IUserService userService)
     : IRequestHandler<DeleteUserCommand, bool>
 {
     public async Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
