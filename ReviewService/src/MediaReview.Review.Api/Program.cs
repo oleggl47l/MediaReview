@@ -99,6 +99,7 @@ builder.Services.AddMassTransit(x =>
     });
 
     x.AddConsumer<UserStatusChangedEventConsumer>();
+    x.AddConsumer<UserDeletedConsumer>();
 });
 
 Log.Logger = new LoggerConfiguration()

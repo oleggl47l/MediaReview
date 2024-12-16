@@ -23,4 +23,18 @@ public class UserService(IPublishEndpoint publishEndpoint, UserManager<User> use
             await publishEndpoint.Publish(userStatusChangedEvent);
         }
     }
+    
+    public async Task NotifyUserDeleted(string userId)
+    {
+        var user = await userManager.FindByIdAsync(userId);
+        if (user == null)
+        {
+            var userDeletedEvent = new UserDeletedEvent
+            {
+                UserId = userId,
+                DeletedAt = DateTime.UtcNow
+            };
+            await publishEndpoint.Publish(userDeletedEvent);
+        }
+    }
 }
